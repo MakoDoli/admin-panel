@@ -7,8 +7,9 @@ import { createTheme } from "@mui/material/styles";
 import { AppProvider } from "@toolpad/core/AppProvider";
 import { DashboardLayout } from "@toolpad/core/DashboardLayout";
 import { useDemoRouter } from "@toolpad/core/internal";
-import Signin from "../login/Signin";
+import UsersTable from "./UsersTable";
 import { NAVIGATION } from "./Navigation";
+import Summary from "./Summary";
 
 const demoTheme = createTheme({
   cssVariables: {
@@ -38,7 +39,8 @@ function DemoPageContent({ pathname }: { pathname: string }) {
       }}
     >
       {/* <Typography>Dashboard content for {pathname}</Typography> */}
-      {pathname === "/overview" && <Signin />}
+      {pathname === "/overview" && <Summary />}
+      {pathname === "/overview" && <UsersTable />}
     </Box>
   );
 }
