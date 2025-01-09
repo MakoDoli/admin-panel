@@ -2,12 +2,14 @@ import { useUserStats } from "@/hooks/useUserStats";
 
 import React from "react";
 import OverviewCard from "./OverviewCard";
+import useGetUsers from "@/hooks/useGetUsers";
 
 type Props = {
   theme: string;
 };
 export default function Summary({ theme }: Props) {
   const { usersCount, femaleCount, maleCount, minAge, maxAge } = useUserStats();
+  const { loading, error } = useGetUsers();
   const cards = [
     {
       src: "/summary-icons/group.png",
@@ -34,6 +36,7 @@ export default function Summary({ theme }: Props) {
       theme,
     },
   ];
+  if (error) return <div>No data 😳</div>;
   return (
     <div className="flex flex-wrap justify-around gap-3 w-full mt-4 mb-8">
       {cards.map((card) => (
@@ -41,7 +44,7 @@ export default function Summary({ theme }: Props) {
           key={card.src}
           src={card.src}
           title={card.title}
-          number={card.number}
+          number={loading ? "loading.." : card.number}
           theme={card.theme}
         />
       ))}

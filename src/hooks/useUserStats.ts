@@ -20,8 +20,8 @@ export function useUserStats() {
       usersCount: users.length,
       femaleCount: females.length,
       maleCount: males.length,
-      minAge: ages.min,
-      maxAge: ages.max,
+      minAge: ages.min === Infinity ? 0 : ages.min,
+      maxAge: ages.max === -Infinity ? 0 : ages.max,
     };
   }, [users]);
 }

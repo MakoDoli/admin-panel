@@ -1,8 +1,7 @@
 "use client";
 import React, { useContext, useState } from "react";
 import { UsersContext } from "@/providers/UsersContext";
-import useGetUsers from "@/hooks/useGetUsers";
-import { montserrat } from "@/utils/fonts";
+
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -13,9 +12,22 @@ import TablePagination from "@mui/material/TablePagination";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 
-export default function UsersTable() {
-  const { loading, error } = useGetUsers();
+import Button from "@mui/material/Button";
+import DeleteIcon from "@mui/icons-material/Delete";
+import DeleteModal from "./DeleteModal";
+import EditModal from "./EditModal";
+
+export default function EditUsers() {
   const { users } = useContext(UsersContext);
+
+  const [openDelete, setOpenDelete] = useState(false);
+  const [openEdit, setOpenEdit] = useState(false);
+  const [userId, setUserId] = useState(0);
+
+  const handleClose = () => {
+    setOpenDelete(false);
+    setOpenEdit(false);
+  };
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -25,13 +37,17 @@ export default function UsersTable() {
     lastName: user.lastName,
     age: user.age,
     email: user.email,
+    id: user.id,
   }));
 
-  const handleChangePage = (event, newPage) => {
+  const handleChangePage = (
+    event: React.MouseEvent<HTMLButtonElement> | null,
+    newPage: React.SetStateAction<number>
+  ) => {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (event) => {
+  const handleChangeRowsPerPage = (event: { target: { value: string } }) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
@@ -43,9 +59,7 @@ export default function UsersTable() {
     page * rowsPerPage,
     page * rowsPerPage + rowsPerPage
   );
-  if (loading) return <div>Loading...</div>;
-  if (error)
-    return <div className={`${montserrat.className}`}>All users vanished</div>;
+
   return (
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
@@ -57,6 +71,7 @@ export default function UsersTable() {
                 <TableCell className="font-bold">Last name</TableCell>
                 <TableCell className="font-bold">Age</TableCell>
                 <TableCell className="font-bold">Email</TableCell>
+                <TableCell className="font-bold">Settings</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -66,6 +81,24 @@ export default function UsersTable() {
                   <TableCell>{row.lastName}</TableCell>
                   <TableCell>{row.age}</TableCell>
                   <TableCell>{row.email}</TableCell>
+                  <TableCell className="flex  gap-2">
+                    <Button
+                      variant="contained"
+                      size="small"
+                      onClick={() => setOpenEdit(true)}
+                    >
+                      Edit
+                    </Button>
+                    <Button
+                      variant="outlined"
+                      size="small"
+                      startIcon={<DeleteIcon />}
+                      onClick={() => {
+                        setOpenDelete(true);
+                        setUserId(row.id);
+                      }}
+                    ></Button>
+                  </TableCell>
                 </TableRow>
               ))}
               {emptyRows > 0 && (
@@ -90,6 +123,8 @@ export default function UsersTable() {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
+      <DeleteModal open={openDelete} onClose={handleClose} userId={userId} />
+      <EditModal open={openEdit} onClose={handleClose} />
     </Box>
   );
 }

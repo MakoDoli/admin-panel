@@ -7,9 +7,12 @@ import { AppProvider } from "@toolpad/core/AppProvider";
 import { DashboardLayout } from "@toolpad/core/DashboardLayout";
 import { useDemoRouter } from "@toolpad/core/internal";
 import UsersTable from "./UsersTable";
+
 import { NAVIGATION } from "./Navigation";
 import Summary from "./Summary";
 import { montserrat } from "@/utils/fonts";
+import EditUsers from "../manage-users/EditUsers";
+import AddUser from "../manage-users/AddUser";
 
 const demoTheme = createTheme({
   cssVariables: {
@@ -51,6 +54,8 @@ function DemoPageContent({ pathname }: { pathname: string }) {
         <Summary theme={theme.palette.background.default} />
       )}
       {pathname === "/overview" && <UsersTable />}
+      {pathname === "/users" && <AddUser />}
+      {pathname === "/users" && <EditUsers />}
     </Box>
   );
 }
