@@ -1,19 +1,22 @@
 "use client";
 import * as React from "react";
 import Box from "@mui/material/Box";
-//import Typography from "@mui/material/Typography";
-import { createTheme } from "@mui/material/styles";
 
+import { createTheme, ThemeProvider, useTheme } from "@mui/material/styles";
 import { AppProvider } from "@toolpad/core/AppProvider";
 import { DashboardLayout } from "@toolpad/core/DashboardLayout";
 import { useDemoRouter } from "@toolpad/core/internal";
 import UsersTable from "./UsersTable";
 import { NAVIGATION } from "./Navigation";
 import Summary from "./Summary";
+import { montserrat } from "@/utils/fonts";
 
 const demoTheme = createTheme({
   cssVariables: {
     colorSchemeSelector: "data-toolpad-color-scheme",
+  },
+  typography: {
+    fontFamily: "Montserrat",
   },
   colorSchemes: { light: true, dark: true },
   breakpoints: {
@@ -28,6 +31,8 @@ const demoTheme = createTheme({
 });
 
 function DemoPageContent({ pathname }: { pathname: string }) {
+  const theme = useTheme();
+  console.log(theme);
   return (
     <Box
       sx={{
@@ -36,10 +41,15 @@ function DemoPageContent({ pathname }: { pathname: string }) {
         flexDirection: "column",
         alignItems: "center",
         textAlign: "center",
+        backgroundColor: theme.palette.background.default, //
+        color: theme.palette.text.primary,
+        transition: "background-color 0.3s, color 0.3s",
       }}
+      className={`${montserrat.className} h-screen p-0`}
     >
-      {/* <Typography>Dashboard content for {pathname}</Typography> */}
-      {pathname === "/overview" && <Summary />}
+      {pathname === "/overview" && (
+        <Summary theme={theme.palette.background.default} />
+      )}
       {pathname === "/overview" && <UsersTable />}
     </Box>
   );
@@ -58,9 +68,11 @@ export default function Overview() {
       router={router}
       theme={demoTheme}
     >
-      <DashboardLayout>
-        <DemoPageContent pathname={router.pathname} />
-      </DashboardLayout>
+      <ThemeProvider theme={demoTheme}>
+        <DashboardLayout>
+          <DemoPageContent pathname={router.pathname} />
+        </DashboardLayout>
+      </ThemeProvider>
     </AppProvider>
   );
 }

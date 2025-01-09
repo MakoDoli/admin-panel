@@ -4,11 +4,14 @@ import { UsersResponse } from "@/utils/types";
 import { useContext, useEffect, useState } from "react";
 
 export default function useGetUsers() {
-  const { setUsers } = useContext(UsersContext);
+  const { users, setUsers } = useContext(UsersContext);
   const [data, setData] = useState<UsersResponse | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
   const getUsers = async () => {
+    if (users.length > 0) {
+      return;
+    }
     try {
       setLoading(true);
       const res = await fetch(API_URL);

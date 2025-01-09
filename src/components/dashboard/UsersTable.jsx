@@ -16,7 +16,6 @@ import Box from "@mui/material/Box";
 export default function UsersTable() {
   const { loading, error } = useGetUsers();
   const { users } = useContext(UsersContext);
-  console.log(users);
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -52,10 +51,10 @@ export default function UsersTable() {
           <Table sx={{ minWidth: 500 }} aria-label="users table">
             <TableHead>
               <TableRow>
-                <TableCell>First name</TableCell>
-                <TableCell>Last name</TableCell>
-                <TableCell>Age</TableCell>
-                <TableCell>Email</TableCell>
+                <TableCell className="font-bold">First name</TableCell>
+                <TableCell className="font-bold">Last name</TableCell>
+                <TableCell className="font-bold">Age</TableCell>
+                <TableCell className="font-bold">Email</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
