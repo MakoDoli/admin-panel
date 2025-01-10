@@ -30,11 +30,7 @@ export default function Signin() {
         <Typography className="text-center mb-6 text-gray-400">
           Sign in to continue
         </Typography>
-        {error && (
-          <Alert severity="error" className="mb-4">
-            {error}
-          </Alert>
-        )}
+
         <form onSubmit={handleSubmit} className="space-y-4 ">
           <TextField
             fullWidth
@@ -53,6 +49,11 @@ export default function Signin() {
             onChange={(e) => setPassword(e.target.value)}
             className="bg-gray-50 rounded-md"
           />
+          {error && (
+            <Alert severity="error" className="mb-4">
+              {error}
+            </Alert>
+          )}
           <Button
             fullWidth
             type="submit"

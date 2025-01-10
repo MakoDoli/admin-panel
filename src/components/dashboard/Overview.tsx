@@ -12,6 +12,7 @@ import { NAVIGATION } from "./Navigation";
 import Summary from "./Summary";
 import { montserrat } from "@/utils/fonts";
 import EditUsers from "../manage-users/EditUsers";
+import Signout from "./Signout";
 
 const demoTheme = createTheme({
   cssVariables: {
@@ -55,6 +56,7 @@ function DemoPageContent({ pathname }: { pathname: string }) {
       {pathname === "/overview" && <UsersTable />}
 
       {pathname === "/users" && <EditUsers />}
+      {pathname === "/logout" && <Signout />}
     </Box>
   );
 }
