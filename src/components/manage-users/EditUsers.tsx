@@ -16,17 +16,22 @@ import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DeleteModal from "./DeleteModal";
 import EditModal from "./EditModal";
+import AddUser from "./AddUser";
+import AddModal from "./AddModal";
 
 export default function EditUsers() {
   const { users } = useContext(UsersContext);
 
   const [openDelete, setOpenDelete] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
+  const [openAddUser, setOpenAddUser] = useState(false);
+
   const [userId, setUserId] = useState(0);
 
   const handleClose = () => {
     setOpenDelete(false);
     setOpenEdit(false);
+    setOpenAddUser(false);
   };
 
   const [page, setPage] = useState(0);
@@ -62,6 +67,7 @@ export default function EditUsers() {
 
   return (
     <Box sx={{ width: "100%" }}>
+      <AddUser handler={() => setOpenAddUser(true)} />
       <Paper sx={{ width: "100%", mb: 2 }}>
         <TableContainer>
           <Table sx={{ minWidth: 500 }} aria-label="users table">
@@ -128,6 +134,7 @@ export default function EditUsers() {
       </Paper>
       <DeleteModal open={openDelete} onClose={handleClose} userId={userId} />
       <EditModal open={openEdit} onClose={handleClose} userId={userId} />
+      <AddModal open={openAddUser} onClose={handleClose} />
     </Box>
   );
 }

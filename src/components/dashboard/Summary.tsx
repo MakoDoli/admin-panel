@@ -31,7 +31,7 @@ export default function Summary({ theme }: Props) {
     },
     {
       src: "/summary-icons/man.png",
-      title: "Users",
+      title: "Males",
       number: `${maleCount}`,
       theme,
     },
