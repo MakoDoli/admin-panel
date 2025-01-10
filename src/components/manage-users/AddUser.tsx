@@ -1,13 +1,16 @@
 import { GroupAdd } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import React from "react";
+import SearchUser from "./SearchUser";
 type Props = {
   handler: () => void;
+  setSearchUser: (value: string) => void;
 };
 
-export default function AddUser({ handler }: Props) {
+export default function AddUser({ handler, setSearchUser }: Props) {
   return (
-    <div className="flex justify-start p-3 w-full">
+    <div className="flex flex-col gap-3 lg:flex-row justify-between p-3 pt-4 w-full">
+      <SearchUser setSearchUser={setSearchUser} />
       <Button
         className="gap-2"
         variant="contained"

@@ -1,10 +1,21 @@
 import { TextField } from "@mui/material";
 import React from "react";
 
-export default function SearchUser() {
+type Props = {
+  setSearchUser: (value: string) => void;
+};
+
+export default function SearchUser({ setSearchUser }: Props) {
+  const handleChange = (e: { target: { value: string } }) => {
+    setSearchUser(e.target.value);
+  };
+
   return (
-    <div>
-      <TextField type="text" />
-    </div>
+    <TextField
+      type="text"
+      size="small"
+      label="Search User"
+      onChange={handleChange}
+    />
   );
 }

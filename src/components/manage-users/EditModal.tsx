@@ -30,10 +30,9 @@ const style = {
 
 export default function EditModal({ open, onClose, userId }: Props) {
   const { users, setUsers } = useContext(UsersContext);
+  const [newUser, setNewUser] = useState(users.find((u) => u.id === userId));
 
   const initialUser = users.find((u) => u.id === userId);
-
-  const [newUser, setNewUser] = useState(initialUser);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -51,9 +50,11 @@ export default function EditModal({ open, onClose, userId }: Props) {
     setUsers(updatedUsers);
     onClose();
   };
+
   useEffect(() => {
     setNewUser(initialUser);
   }, [initialUser]);
+
   return (
     <Modal
       aria-labelledby="transition-modal-title"

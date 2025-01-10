@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { UsersContext } from "@/providers/UsersContext";
 
 import Table from "@mui/material/Table";
@@ -12,15 +12,16 @@ import TablePagination from "@mui/material/TablePagination";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 
-import Button from "@mui/material/Button";
-import DeleteIcon from "@mui/icons-material/Delete";
 import DeleteModal from "./DeleteModal";
 import EditModal from "./EditModal";
 import AddUser from "./AddUser";
 import AddModal from "./AddModal";
+import UserRow from "./UserRow";
 
 export default function EditUsers() {
   const { users } = useContext(UsersContext);
+  const [filteredUsers, setFilteredUsers] = useState(users);
+  const [searchUser, setSearchUser] = useState("");
 
   const [openDelete, setOpenDelete] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
@@ -28,22 +29,22 @@ export default function EditUsers() {
 
   const [userId, setUserId] = useState(0);
 
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+
+  const rows = filteredUsers?.map((user) => ({
+    firstName: user.firstName,
+    lastName: user.lastName,
+    age: user.age,
+    email: user.email,
+    id: user.id,
+    gender: user.gender,
+  }));
   const handleClose = () => {
     setOpenDelete(false);
     setOpenEdit(false);
     setOpenAddUser(false);
   };
-
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
-
-  const rows = users?.map((user) => ({
-    name: user.firstName,
-    lastName: user.lastName,
-    age: user.age,
-    email: user.email,
-    id: user.id,
-  }));
 
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
@@ -64,10 +65,23 @@ export default function EditUsers() {
     page * rowsPerPage,
     page * rowsPerPage + rowsPerPage
   );
+  useEffect(() => {
+    setFilteredUsers(
+      users.filter(
+        (user) =>
+          user.firstName.toLowerCase().includes(searchUser.toLowerCase()) ||
+          user.lastName.toLowerCase().includes(searchUser.toLowerCase())
+      )
+    );
+  }, [users, searchUser]);
 
   return (
     <Box sx={{ width: "100%" }}>
-      <AddUser handler={() => setOpenAddUser(true)} />
+      <AddUser
+        handler={() => setOpenAddUser(true)}
+        setSearchUser={setSearchUser}
+      />
+
       <Paper sx={{ width: "100%", mb: 2 }}>
         <TableContainer>
           <Table sx={{ minWidth: 500 }} aria-label="users table">
@@ -82,33 +96,18 @@ export default function EditUsers() {
             </TableHead>
             <TableBody>
               {visibleRows.map((row) => (
-                <TableRow key={row.name}>
-                  <TableCell>{row.name}</TableCell>
-                  <TableCell>{row.lastName}</TableCell>
-                  <TableCell>{row.age}</TableCell>
-                  <TableCell>{row.email}</TableCell>
-                  <TableCell className="flex  gap-2">
-                    <Button
-                      variant="contained"
-                      size="small"
-                      onClick={() => {
-                        setOpenEdit(true);
-                        setUserId(row.id);
-                      }}
-                    >
-                      Edit
-                    </Button>
-                    <Button
-                      variant="outlined"
-                      size="small"
-                      startIcon={<DeleteIcon />}
-                      onClick={() => {
-                        setOpenDelete(true);
-                        setUserId(row.id);
-                      }}
-                    ></Button>
-                  </TableCell>
-                </TableRow>
+                <UserRow
+                  key={row.id}
+                  row={row}
+                  onDelete={() => {
+                    setOpenDelete(true);
+                    setUserId(row.id);
+                  }}
+                  onEdit={() => {
+                    setOpenEdit(true);
+                    setUserId(row.id);
+                  }}
+                />
               ))}
               {emptyRows > 0 && (
                 <TableRow
