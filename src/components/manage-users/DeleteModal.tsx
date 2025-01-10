@@ -20,7 +20,8 @@ const style = {
   transform: "translate(-50%, -50%)",
   width: 400,
   bgcolor: "background.paper",
-  border: "2px solid #000",
+  border: "1px solid #1976d2",
+  borderRadius: 1,
   boxShadow: 24,
   p: 4,
   color: "text.primary",
@@ -55,7 +56,7 @@ export default function DeleteModal({ open, onClose, userId }: Props) {
           >
             Are you sure you want to delete this user?
           </Typography>
-          <div className="flex justify-around w-full mt-4">
+          <div className="flex justify-around w-full mt-8">
             <Button variant="outlined" onClick={onClose}>
               Cancel
             </Button>

@@ -85,7 +85,10 @@ export default function EditUsers() {
                     <Button
                       variant="contained"
                       size="small"
-                      onClick={() => setOpenEdit(true)}
+                      onClick={() => {
+                        setOpenEdit(true);
+                        setUserId(row.id);
+                      }}
                     >
                       Edit
                     </Button>
@@ -124,7 +127,7 @@ export default function EditUsers() {
         />
       </Paper>
       <DeleteModal open={openDelete} onClose={handleClose} userId={userId} />
-      <EditModal open={openEdit} onClose={handleClose} />
+      <EditModal open={openEdit} onClose={handleClose} userId={userId} />
     </Box>
   );
 }

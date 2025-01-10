@@ -35,7 +35,7 @@ const demoTheme = createTheme({
 
 function DemoPageContent({ pathname }: { pathname: string }) {
   const theme = useTheme();
-  console.log(theme);
+
   return (
     <Box
       sx={{
