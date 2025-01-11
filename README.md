@@ -57,6 +57,8 @@ Ensure you have the following installed on your system:
 
    Navigate to [http://localhost:3000](http://localhost:3000) to view the application. 🌐
 
+   You're all set! 🎉
+
 ---
 
 ## Technology Stack
@@ -73,19 +75,9 @@ Working on this project was an engaging experience, especially exploring the cap
 
 ---
 
-## Contact
 
-For any inquiries or suggestions, feel free to reach out to:
-- **Email**: your.email@example.com
-- **GitHub**: [your-username](https://github.com/your-username)
+Open [this link](https://admin-dashboard-makodoli.vercel.app/)) with your browser to see the live project.
 
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
 ## Learn More
 
@@ -94,5 +86,9 @@ To learn more about Next.js, take a look at the following resources:
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+const grateful = () => {
+    If (finishedReading) console.log("Thank you for checking out my project! 🙏");
 
+};
+```
