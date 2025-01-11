@@ -1,31 +1,21 @@
 // TransitionsModal.jsx
+import { UsersContext } from "@/providers/UsersContext";
+
 import React, { useContext, useState } from "react";
+
+import { Button, TextField } from "@mui/material";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
-import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
+import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
-import { Button, TextField } from "@mui/material";
-import { UsersContext } from "@/providers/UsersContext";
+
+import { modalStyle } from "@/utils/constants";
 import { User } from "@/utils/types";
 
 type Props = {
   open: boolean;
   onClose: () => void;
-};
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  maxWidth: 400,
-  bgcolor: "background.paper",
-  border: "1px solid #1976d2",
-  borderRadius: 1,
-  boxShadow: 24,
-  p: 4,
-  m: 0,
-  color: "text.secondary",
 };
 
 export default function AddModal({ open, onClose }: Props) {
@@ -77,7 +67,7 @@ export default function AddModal({ open, onClose }: Props) {
       }}
     >
       <Fade in={open}>
-        <Box sx={style}>
+        <Box sx={modalStyle}>
           <Typography id="transition-modal-description" sx={{ mb: 2 }}>
             Edit user{" "}
           </Typography>

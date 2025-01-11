@@ -1,17 +1,21 @@
 "use client";
-import React, { useContext, useState } from "react";
+
 import { UsersContext } from "@/providers/UsersContext";
-import useGetUsers from "@/hooks/useGetUsers";
-import { montserrat } from "@/utils/fonts";
+
+import React, { useContext, useState } from "react";
+
+import Box from "@mui/material/Box";
+import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
 import TablePagination from "@mui/material/TablePagination";
-import Paper from "@mui/material/Paper";
-import Box from "@mui/material/Box";
+import TableRow from "@mui/material/TableRow";
+
+import useGetUsers from "@/hooks/useGetUsers";
+import { montserrat } from "@/utils/fonts";
 
 export default function UsersTable() {
   const { loading, error } = useGetUsers();
@@ -29,7 +33,7 @@ export default function UsersTable() {
 
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
-    newPage: React.SetStateAction<number>
+    newPage: React.SetStateAction<number>,
   ) => {
     setPage(newPage);
   };
@@ -44,7 +48,7 @@ export default function UsersTable() {
 
   const visibleRows = rows.slice(
     page * rowsPerPage,
-    page * rowsPerPage + rowsPerPage
+    page * rowsPerPage + rowsPerPage,
   );
   if (loading) return <div>Loading...</div>;
   if (error)

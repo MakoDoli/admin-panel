@@ -1,13 +1,15 @@
 // TransitionsModal.jsx
+import { UsersContext } from "@/providers/UsersContext";
+
 import React, { useContext } from "react";
+
+import { Button } from "@mui/material";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
-import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
+import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
-import { Button } from "@mui/material";
 
-import { UsersContext } from "@/providers/UsersContext";
 type Props = {
   open: boolean;
   onClose: () => void;

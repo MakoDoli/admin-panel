@@ -1,7 +1,9 @@
 import { UsersContext } from "@/providers/UsersContext";
+
+import { useContext, useEffect, useState } from "react";
+
 import { API_URL } from "@/utils/constants";
 import { UsersResponse } from "@/utils/types";
-import { useContext, useEffect, useState } from "react";
 
 export default function useGetUsers() {
   const { users, setUsers } = useContext(UsersContext);

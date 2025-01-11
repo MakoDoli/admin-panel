@@ -1,8 +1,9 @@
+import React from "react";
+
+import useGetUsers from "@/hooks/useGetUsers";
 import { useUserStats } from "@/hooks/useUserStats";
 
-import React from "react";
 import OverviewCard from "./OverviewCard";
-import useGetUsers from "@/hooks/useGetUsers";
 
 type Props = {
   theme: string;
@@ -25,7 +26,7 @@ export default function Summary({ theme }: Props) {
     },
     {
       src: "/summary-icons/woman.png",
-      title: "Female",
+      title: "Females",
       number: femaleCount,
       theme,
     },

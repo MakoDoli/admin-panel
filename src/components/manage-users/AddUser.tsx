@@ -1,7 +1,10 @@
+import React from "react";
+
 import { GroupAdd } from "@mui/icons-material";
 import { Button } from "@mui/material";
-import React from "react";
+
 import SearchUser from "./SearchUser";
+
 type Props = {
   handler: () => void;
   setSearchUser: (value: string) => void;

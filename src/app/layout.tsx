@@ -1,8 +1,11 @@
+import { UsersProvider } from "@/providers/UsersContext";
+
 import type { Metadata } from "next";
+
+import { montserrat } from "@/utils/fonts";
+
 //import { Montserrat } from "next/font/google";
 import "./globals.css";
-import { UsersProvider } from "@/providers/UsersContext";
-import { montserrat } from "@/utils/fonts";
 
 export const metadata: Metadata = {
   title: "Admin Dashboard",

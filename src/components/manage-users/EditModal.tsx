@@ -1,36 +1,31 @@
 // TransitionsModal.jsx
+import { UsersContext } from "@/providers/UsersContext";
+
 import React, { useContext, useEffect, useState } from "react";
+
+import { Button } from "@mui/material";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
-import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
+import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
-import { Button, TextField } from "@mui/material";
-import { UsersContext } from "@/providers/UsersContext";
+
+import { formFields, modalStyle } from "@/utils/constants";
+import { validateField } from "@/utils/helpers";
+import { User } from "@/utils/types";
+
+import UserField from "./UserField";
 
 type Props = {
   open: boolean;
   onClose: () => void;
   userId: number;
 };
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  maxWidth: 400,
-  bgcolor: "background.paper",
-  border: "1px solid #1976d2",
-  borderRadius: 1,
-  boxShadow: 24,
-  p: 4,
-  m: 0,
-  color: "text.secondary",
-};
 
 export default function EditModal({ open, onClose, userId }: Props) {
   const { users, setUsers } = useContext(UsersContext);
   const [newUser, setNewUser] = useState(users.find((u) => u.id === userId));
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   const initialUser = users.find((u) => u.id === userId);
 
@@ -44,10 +39,29 @@ export default function EditModal({ open, onClose, userId }: Props) {
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
+
+    const newErrors: Record<string, string> = {};
+    if (newUser) {
+      formFields.forEach((field) => {
+        const error = validateField(
+          field.label,
+          newUser[field.name as keyof User],
+          field.validation,
+        );
+        if (error) newErrors[field.name] = error;
+      });
+
+      if (Object.keys(newErrors).length > 0) {
+        setErrors(newErrors);
+        return;
+      }
+    }
     const updatedUsers = users.map((user) =>
-      user.id === userId ? { ...user, ...newUser } : user
+      user.id === userId ? { ...user, ...newUser } : user,
     );
+
     setUsers(updatedUsers);
+    setErrors({});
     onClose();
   };
 
@@ -70,76 +84,32 @@ export default function EditModal({ open, onClose, userId }: Props) {
       }}
     >
       <Fade in={open}>
-        <Box sx={style}>
+        <Box sx={modalStyle}>
           <Typography id="transition-modal-description" sx={{ mb: 2 }}>
             Edit user{" "}
           </Typography>
           <form onSubmit={handleSubmit} className="space-y-4 text-sm ">
-            <TextField
-              fullWidth
-              name="firstName"
-              label="First Name"
-              type="text"
-              variant="outlined"
-              value={newUser?.firstName}
-              className=" rounded-md "
-              size="small"
-              onChange={handleChange}
-            />
-            <TextField
-              fullWidth
-              name="lastName"
-              label="Last Name"
-              type="text"
-              variant="outlined"
-              value={newUser?.lastName}
-              className=" rounded-md"
-              size="small"
-              onChange={handleChange}
-            />
-            <TextField
-              fullWidth
-              name="age"
-              label="Age"
-              type="text"
-              variant="outlined"
-              value={newUser?.age}
-              className=" rounded-md"
-              size="small"
-              onChange={handleChange}
-            />
-            <TextField
-              fullWidth
-              name="email"
-              label="Email"
-              type="text"
-              variant="outlined"
-              value={newUser?.email}
-              className=" rounded-md"
-              size="small"
-              onChange={handleChange}
-            />
-            <TextField
-              fullWidth
-              name="gender"
-              label="Gender"
-              type="text"
-              variant="outlined"
-              value={newUser?.gender}
-              className=" rounded-md"
-              size="small"
-              onChange={handleChange}
-            />
+            {formFields.map((field) => (
+              <UserField
+                key={field.name}
+                field={field}
+                value={newUser?.[field.name as keyof User]}
+                onChange={handleChange}
+                error={errors[field.name]}
+              />
+            ))}
+
             <div className="flex gap-20 w-full">
               <Button
                 fullWidth
+                variant="outlined"
                 type="button"
                 size="small"
-                variant="outlined"
                 color="primary"
                 className="bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-md"
                 onClick={() => {
                   setNewUser(initialUser);
+                  setErrors({});
                   onClose();
                 }}
               >

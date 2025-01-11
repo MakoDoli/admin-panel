@@ -1,12 +1,14 @@
 "use client";
-import { User } from "@/utils/types";
+
 import {
-  createContext,
-  ReactNode,
-  useState,
   Dispatch,
+  ReactNode,
   SetStateAction,
+  createContext,
+  useState,
 } from "react";
+
+import { User } from "@/utils/types";
 
 type UsersContextProps = {
   users: User[];

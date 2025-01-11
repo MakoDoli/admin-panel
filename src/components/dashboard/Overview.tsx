@@ -1,17 +1,19 @@
 "use client";
-import * as React from "react";
-import Box from "@mui/material/Box";
 
+import * as React from "react";
+
+import Box from "@mui/material/Box";
 import { createTheme, useTheme } from "@mui/material/styles";
 import { AppProvider } from "@toolpad/core/AppProvider";
 import { DashboardLayout } from "@toolpad/core/DashboardLayout";
 import { useDemoRouter } from "@toolpad/core/internal";
 
-import { NAVIGATION } from "./Navigation";
-import Summary from "./Summary";
 import { montserrat } from "@/utils/fonts";
+
 import EditUsers from "../manage-users/EditUsers";
+import { NAVIGATION } from "./Navigation";
 import Signout from "./Signout";
+import Summary from "./Summary";
 import UsersTable from "./UsersTable";
 
 const demoTheme = createTheme({

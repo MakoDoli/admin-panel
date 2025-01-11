@@ -1,5 +1,6 @@
-import { Button, TableCell, TableRow } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { Button, TableCell, TableRow } from "@mui/material";
+
 import { User } from "@/utils/types";
 
 type Props = {

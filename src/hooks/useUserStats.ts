@@ -1,5 +1,6 @@
-import { useContext, useMemo } from "react";
 import { UsersContext } from "@/providers/UsersContext";
+
+import { useContext, useMemo } from "react";
 
 export function useUserStats() {
   const { users } = useContext(UsersContext);
@@ -13,7 +14,7 @@ export function useUserStats() {
         if (person.age > acc.max) acc.max = person.age;
         return acc;
       },
-      { min: Infinity, max: -Infinity }
+      { min: Infinity, max: -Infinity },
     );
 
     return {
