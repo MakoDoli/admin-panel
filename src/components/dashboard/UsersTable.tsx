@@ -51,7 +51,7 @@ export default function UsersTable() {
     page * rowsPerPage,
     page * rowsPerPage + rowsPerPage,
   );
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div className="mt-8">Loading...</div>;
   if (error)
     return <div className={`${montserrat.className}`}>All users vanished</div>;
   return (

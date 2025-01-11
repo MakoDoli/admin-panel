@@ -7,12 +7,12 @@ import { createTheme, useTheme } from "@mui/material/styles";
 import { AppProvider } from "@toolpad/core/AppProvider";
 import { DashboardLayout } from "@toolpad/core/DashboardLayout";
 import { useDemoRouter } from "@toolpad/core/internal";
+import { useRouter } from "next/navigation";
 
 import { montserrat } from "@/utils/fonts";
 
 import EditUsers from "../manage-users/EditUsers";
 import { NAVIGATION } from "./Navigation";
-import Signout from "./Signout";
 import Summary from "./Summary";
 import UsersTable from "./UsersTable";
 
@@ -79,7 +79,8 @@ export const demoTheme = createTheme({
 
 function DemoPageContent({ pathname }: { pathname: string }) {
   const theme = useTheme();
-
+  const router = useRouter();
+  if (pathname === "/logout") router.push("/");
   return (
     <Box
       sx={{
@@ -99,7 +100,6 @@ function DemoPageContent({ pathname }: { pathname: string }) {
       )}
       {pathname === "/overview" && <UsersTable />}
       {pathname === "/users" && <EditUsers />}
-      {pathname === "/logout" && <Signout />}
     </Box>
   );
 }
