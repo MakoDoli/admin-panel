@@ -34,7 +34,7 @@ export default function Signin() {
         <Typography variant="h5" className="text-center mb-6 text-slate-800">
           Welcome to your awesome dashboard
         </Typography>
-        <Typography className="text-center mb-6 text-gray-400">
+        <Typography className="text-center mb-6 text-gray-600">
           Sign in to continue
         </Typography>
 

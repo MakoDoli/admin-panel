@@ -11,7 +11,11 @@ import { montserrat } from "@/utils/fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Admin Dashboard",
+  title: {
+    default: "Admin Dashboard",
+    template: "%s ",
+  },
+  description: "A Next.js admin dashboard with Material-UI components",
 };
 
 export default function RootLayout({
