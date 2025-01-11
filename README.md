@@ -76,7 +76,7 @@ Working on this project was an engaging experience, especially exploring the cap
 ---
 
 
-Open [this link](https://admin-dashboard-makodoli.vercel.app/)) with your browser to see the live project.
+Open [this link](https://admin-dashboard-makodoli.vercel.app/) with your browser to see the live project.
 
 
 ## Learn More
