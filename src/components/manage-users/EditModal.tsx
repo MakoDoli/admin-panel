@@ -35,7 +35,36 @@ export default function EditModal({ open, onClose, userId }: Props) {
       const updatedUser = { ...newUser, [name]: value };
       setNewUser(updatedUser);
     }
+    const newErrors = { ...errors };
+    const field = formFields.find((field) => field.name === name);
+    if (newUser && field) {
+      const error = validateField(field.label, value, field.validation);
+      if (error) {
+        newErrors[field.name] = error;
+      } else {
+        delete newErrors[field.name];
+      }
+      setErrors(newErrors);
+    }
   };
+
+  // const handleBlur = (field: (typeof formFields)[number]) => {
+  //   const newErrors = { ...errors };
+
+  //   if (newUser) {
+  //     const error = validateField(
+  //       field.label,
+  //       newUser[field.name as keyof User],
+  //       field.validation,
+  //     );
+  //     if (error) {
+  //       newErrors[field.name] = error;
+  //     } else {
+  //       delete newErrors[field.name];
+  //     }
+  //     setErrors(newErrors);
+  //   }
+  // };
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();

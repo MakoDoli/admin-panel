@@ -15,7 +15,7 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 
 import AddModal from "./AddModal";
-import AddUser from "./AddUser";
+import AddUser from "./AddUserButton";
 import DeleteModal from "./DeleteModal";
 import EditModal from "./EditModal";
 import UserRow from "./UserRow";

@@ -3,15 +3,18 @@ import { UsersContext } from "@/providers/UsersContext";
 
 import React, { useContext, useState } from "react";
 
-import { Button, TextField } from "@mui/material";
+import { Button } from "@mui/material";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Fade from "@mui/material/Fade";
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 
-import { modalStyle } from "@/utils/constants";
+import { formFields, modalStyle } from "@/utils/constants";
+import { validateField } from "@/utils/helpers";
 import { User } from "@/utils/types";
+
+import UserField from "./UserField";
 
 type Props = {
   open: boolean;
@@ -20,6 +23,7 @@ type Props = {
 
 export default function AddModal({ open, onClose }: Props) {
   const { users, setUsers } = useContext(UsersContext);
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   const initialUser = {
     id: 0,
@@ -34,7 +38,6 @@ export default function AddModal({ open, onClose }: Props) {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-
     if (newUser) {
       const updatedUser = {
         ...newUser,
@@ -43,12 +46,40 @@ export default function AddModal({ open, onClose }: Props) {
       };
       setNewUser(updatedUser);
     }
+    const newErrors = { ...errors };
+    const field = formFields.find((field) => field.name === name);
+    if (newUser && field) {
+      const error = validateField(field.label, value, field.validation);
+      if (error) {
+        newErrors[field.name] = error;
+      } else {
+        delete newErrors[field.name];
+      }
+      setErrors(newErrors);
+    }
   };
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
+    const newErrors: Record<string, string> = {};
+    if (newUser) {
+      formFields.forEach((field) => {
+        const error = validateField(
+          field.label,
+          newUser[field.name as keyof User],
+          field.validation,
+        );
+        if (error) newErrors[field.name] = error;
+      });
+
+      if (Object.keys(newErrors).length > 0) {
+        setErrors(newErrors);
+        return;
+      }
+    }
     const updatedUsers = [newUser, ...users];
     setUsers(updatedUsers);
+    setErrors({});
     onClose();
   };
 
@@ -69,64 +100,19 @@ export default function AddModal({ open, onClose }: Props) {
       <Fade in={open}>
         <Box sx={modalStyle}>
           <Typography id="transition-modal-description" sx={{ mb: 2 }}>
-            Edit user{" "}
+            Add user
           </Typography>
           <form onSubmit={handleSubmit} className="space-y-4 text-sm ">
-            <TextField
-              fullWidth
-              name="firstName"
-              label="First Name"
-              type="text"
-              variant="outlined"
-              value={newUser?.firstName}
-              className=" rounded-md "
-              size="small"
-              onChange={handleChange}
-            />
-            <TextField
-              fullWidth
-              name="lastName"
-              label="Last Name"
-              type="text"
-              variant="outlined"
-              value={newUser?.lastName}
-              className=" rounded-md"
-              size="small"
-              onChange={handleChange}
-            />
-            <TextField
-              fullWidth
-              name="age"
-              label="Age"
-              type="text"
-              variant="outlined"
-              value={newUser?.age}
-              className=" rounded-md"
-              size="small"
-              onChange={handleChange}
-            />
-            <TextField
-              fullWidth
-              name="email"
-              label="Email"
-              type="text"
-              variant="outlined"
-              value={newUser?.email}
-              className=" rounded-md"
-              size="small"
-              onChange={handleChange}
-            />
-            <TextField
-              fullWidth
-              name="gender"
-              label="Gender"
-              type="text"
-              variant="outlined"
-              value={newUser?.gender}
-              className=" rounded-md"
-              size="small"
-              onChange={handleChange}
-            />
+            {formFields.map((field) => (
+              <UserField
+                key={field.name}
+                field={field}
+                value={newUser?.[field.name as keyof User]}
+                onChange={handleChange}
+                error={errors[field.name]}
+              />
+            ))}
+
             <div className="flex gap-20 w-full">
               <Button
                 fullWidth
@@ -137,6 +123,7 @@ export default function AddModal({ open, onClose }: Props) {
                 className="bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-md"
                 onClick={() => {
                   setNewUser(initialUser);
+                  setErrors({});
                   onClose();
                 }}
               >
