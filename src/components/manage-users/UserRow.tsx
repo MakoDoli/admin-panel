@@ -11,7 +11,7 @@ type Props = {
 
 export default function UserRow({ row, onEdit, onDelete }: Props) {
   return (
-    <TableRow key={row.firstName} className="hover:bg-blue-50">
+    <TableRow key={row.firstName}>
       <TableCell>{row.firstName}</TableCell>
       <TableCell>{row.lastName}</TableCell>
       <TableCell>{row.age}</TableCell>

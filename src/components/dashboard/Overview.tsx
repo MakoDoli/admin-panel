@@ -16,7 +16,7 @@ import Signout from "./Signout";
 import Summary from "./Summary";
 import UsersTable from "./UsersTable";
 
-const demoTheme = createTheme({
+export const demoTheme = createTheme({
   cssVariables: {
     colorSchemeSelector: "data-toolpad-color-scheme",
   },

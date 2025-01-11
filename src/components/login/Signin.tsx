@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 
+import LoadingButton from "@mui/lab/LoadingButton";
 import { Alert, Button, TextField, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 
@@ -11,15 +12,18 @@ export default function Signin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [logging, setLogging] = useState(false);
   const router = useRouter();
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
     if (email === DEFAULT_EMAIL && password === DEFAULT_PASSWORD) {
+      setLogging(true);
       setError("");
       router.push("/dashboard");
     } else {
+      setLogging(false);
       setError("Wrong credentials");
     }
   };
@@ -57,15 +61,18 @@ export default function Signin() {
               {error}
             </Alert>
           )}
-          <Button
-            fullWidth
-            type="submit"
-            variant="contained"
-            color="primary"
-            className="bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-md"
-          >
-            Login
-          </Button>
+          {!logging && (
+            <Button
+              fullWidth
+              type="submit"
+              variant="contained"
+              color="primary"
+              className="bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-md"
+            >
+              Login
+            </Button>
+          )}
+          {logging && <LoadingButton loading fullWidth />}
         </form>
       </div>
     </div>

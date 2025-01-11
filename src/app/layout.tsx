@@ -1,6 +1,9 @@
 import { UsersProvider } from "@/providers/UsersContext";
 
+import { CssBaseline, ThemeProvider } from "@mui/material";
 import type { Metadata } from "next";
+
+import { demoTheme } from "@/components/dashboard/Overview";
 
 import { montserrat } from "@/utils/fonts";
 
@@ -18,11 +21,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <UsersProvider>
-        <body className={`${montserrat.className} antialiased`}>
-          {children}
-        </body>
-      </UsersProvider>
+      <ThemeProvider theme={demoTheme}>
+        <CssBaseline />
+        <UsersProvider>
+          <body className={`${montserrat.className} antialiased`}>
+            {children}
+          </body>
+        </UsersProvider>
+      </ThemeProvider>
     </html>
   );
 }
