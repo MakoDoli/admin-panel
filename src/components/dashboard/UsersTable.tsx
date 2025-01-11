@@ -29,6 +29,7 @@ export default function UsersTable() {
     lastName: user.lastName,
     age: user.age,
     email: user.email,
+    gender: user.gender,
   }));
 
   const handleChangePage = (
@@ -63,6 +64,7 @@ export default function UsersTable() {
                 <TableCell className="font-bold">First name</TableCell>
                 <TableCell className="font-bold">Last name</TableCell>
                 <TableCell className="font-bold">Age</TableCell>
+                <TableCell className="font-bold">Gender</TableCell>
                 <TableCell className="font-bold">Email</TableCell>
               </TableRow>
             </TableHead>
@@ -72,6 +74,7 @@ export default function UsersTable() {
                   <TableCell>{row.name}</TableCell>
                   <TableCell>{row.lastName}</TableCell>
                   <TableCell>{row.age}</TableCell>
+                  <TableCell>{row.gender}</TableCell>
                   <TableCell>{row.email}</TableCell>
                 </TableRow>
               ))}

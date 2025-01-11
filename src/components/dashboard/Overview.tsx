@@ -33,6 +33,48 @@ const demoTheme = createTheme({
       xl: 1536,
     },
   },
+  components: {
+    MuiDrawer: {
+      styleOverrides: {
+        root: {
+          [`@media (max-width:1200px)`]: {
+            width: "250px !important",
+          },
+        },
+        paper: {
+          [`@media (max-width:1200px)`]: {
+            width: "250px !important",
+          },
+        },
+      },
+    },
+    MuiList: {
+      styleOverrides: {
+        root: {
+          padding: 0,
+          "& > li": {
+            padding: "3px 8px",
+            borderRadius: "0px",
+          },
+        },
+      },
+    },
+    MuiStack: {
+      styleOverrides: {
+        root: {
+          alignItems: "center",
+          gap: "0px",
+          justifyItems: "start",
+          "& > .css-yzjoij": {
+            display: "none",
+          },
+          "& > .css-1dxxui": {
+            marginRight: "2px",
+          },
+        },
+      },
+    },
+  },
 });
 
 function DemoPageContent({ pathname }: { pathname: string }) {

@@ -12,7 +12,7 @@ type Props = {
 
 export default function AddUser({ handler, setSearchUser }: Props) {
   return (
-    <div className="flex flex-col gap-3 lg:flex-row justify-between p-3 pt-4 w-full">
+    <div className="flex flex-col  gap-[18px] md:flex-row justify-between p-3 pt-4 w-full">
       <SearchUser setSearchUser={setSearchUser} />
       <Button
         className="gap-2"
