@@ -1,12 +1,12 @@
-import { UsersContext } from "@/providers/UsersContext";
+import useUsers from "@/providers/UsersContext";
 
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { API_URL } from "@/utils/constants";
 import { UsersResponse } from "@/utils/types";
 
 export default function useGetUsers() {
-  const { users, setUsers } = useContext(UsersContext);
+  const { users, setUsers } = useUsers()
   const [data, setData] = useState<UsersResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);

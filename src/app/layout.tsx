@@ -7,13 +7,12 @@ import { demoTheme } from "@/components/dashboard/Overview";
 
 import { montserrat } from "@/utils/fonts";
 
-//import { Montserrat } from "next/font/google";
 import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
     default: "Admin Dashboard",
-    template: "%s ",
+    template: "%s - Admin Dashboard",
   },
   description: "A Next.js admin dashboard with Material-UI components",
 };

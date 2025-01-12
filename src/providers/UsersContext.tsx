@@ -5,6 +5,7 @@ import {
   ReactNode,
   SetStateAction,
   createContext,
+  useContext,
   useState,
 } from "react";
 
@@ -32,3 +33,11 @@ export const UsersProvider = ({ children }: ChildrenProps) => {
     </UsersContext.Provider>
   );
 };
+
+export default function useUsers() {
+  const context = useContext(UsersContext);
+  if (!context) {
+    throw new Error("useUsers must be used within a UsersProvider");
+  }
+  return context;
+}

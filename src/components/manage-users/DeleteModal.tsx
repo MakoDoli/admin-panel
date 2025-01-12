@@ -1,7 +1,7 @@
 // TransitionsModal.jsx
-import { UsersContext } from "@/providers/UsersContext";
+import useUsers from "@/providers/UsersContext";
 
-import React, { useContext } from "react";
+import React from "react";
 
 import { Button } from "@mui/material";
 import Backdrop from "@mui/material/Backdrop";
@@ -30,7 +30,7 @@ const style = {
 };
 
 export default function DeleteModal({ open, onClose, userId }: Props) {
-  const { users, setUsers } = useContext(UsersContext);
+  const { users, setUsers } = useUsers();
   function handleDelete() {
     const updatedUsers = users.filter((user) => user.id !== userId);
     setUsers(updatedUsers);

@@ -89,7 +89,7 @@ function DemoPageContent({ pathname }: { pathname: string }) {
         flexDirection: "column",
         alignItems: "center",
         textAlign: "center",
-        backgroundColor: theme.palette.background.default, //
+        backgroundColor: theme.palette.background.default,
         color: theme.palette.text.primary,
         transition: "background-color 0.3s, color 0.3s",
       }}

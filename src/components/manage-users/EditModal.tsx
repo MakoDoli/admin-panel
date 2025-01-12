@@ -1,7 +1,7 @@
 // TransitionsModal.jsx
-import { UsersContext } from "@/providers/UsersContext";
+import useUsers from "@/providers/UsersContext";
 
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Button } from "@mui/material";
 import Backdrop from "@mui/material/Backdrop";
@@ -23,7 +23,7 @@ type Props = {
 };
 
 export default function EditModal({ open, onClose, userId }: Props) {
-  const { users, setUsers } = useContext(UsersContext);
+  const { users, setUsers } = useUsers();
   const [newUser, setNewUser] = useState(users.find((u) => u.id === userId));
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -47,24 +47,6 @@ export default function EditModal({ open, onClose, userId }: Props) {
       setErrors(newErrors);
     }
   };
-
-  // const handleBlur = (field: (typeof formFields)[number]) => {
-  //   const newErrors = { ...errors };
-
-  //   if (newUser) {
-  //     const error = validateField(
-  //       field.label,
-  //       newUser[field.name as keyof User],
-  //       field.validation,
-  //     );
-  //     if (error) {
-  //       newErrors[field.name] = error;
-  //     } else {
-  //       delete newErrors[field.name];
-  //     }
-  //     setErrors(newErrors);
-  //   }
-  // };
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -115,9 +97,9 @@ export default function EditModal({ open, onClose, userId }: Props) {
       <Fade in={open}>
         <Box sx={modalStyle}>
           <Typography id="transition-modal-description" sx={{ mb: 2 }}>
-            Edit user{" "}
+            Edit user
           </Typography>
-          <form onSubmit={handleSubmit} className="space-y-4 text-sm ">
+          <form onSubmit={handleSubmit} className="space-y-4">
             {formFields.map((field) => (
               <UserField
                 key={field.name}
@@ -133,9 +115,8 @@ export default function EditModal({ open, onClose, userId }: Props) {
                 fullWidth
                 variant="outlined"
                 type="button"
-                size="small"
+                size="large"
                 color="primary"
-                className="bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-md"
                 onClick={() => {
                   setNewUser(initialUser);
                   setErrors({});
@@ -146,12 +127,10 @@ export default function EditModal({ open, onClose, userId }: Props) {
               </Button>
               <Button
                 fullWidth
-                name="gender"
                 type="submit"
-                size="small"
+                size="large"
                 variant="contained"
                 color="primary"
-                className="bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-md"
               >
                 Save
               </Button>

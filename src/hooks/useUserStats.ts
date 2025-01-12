@@ -1,9 +1,9 @@
-import { UsersContext } from "@/providers/UsersContext";
+import useUsers from "@/providers/UsersContext";
 
-import { useContext, useMemo } from "react";
+import { useMemo } from "react";
 
 export function useUserStats() {
-  const { users } = useContext(UsersContext);
+  const { users } = useUsers();
 
   return useMemo(() => {
     const females = users.filter((user) => user.gender === "female");

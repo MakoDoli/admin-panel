@@ -1,8 +1,8 @@
 "use client";
 
-import { UsersContext } from "@/providers/UsersContext";
+import useUsers from "@/providers/UsersContext";
 
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
@@ -19,7 +19,7 @@ import { montserrat } from "@/utils/fonts";
 
 export default function UsersTable() {
   const { loading, error } = useGetUsers();
-  const { users } = useContext(UsersContext);
+  const { users } = useUsers();
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -51,9 +51,11 @@ export default function UsersTable() {
     page * rowsPerPage,
     page * rowsPerPage + rowsPerPage,
   );
+
   if (loading) return <div className="mt-8">Loading...</div>;
   if (error)
     return <div className={`${montserrat.className}`}>All users vanished</div>;
+
   return (
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>

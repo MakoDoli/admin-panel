@@ -1,8 +1,8 @@
 "use client";
 
-import { UsersContext } from "@/providers/UsersContext";
+import useUsers from "@/providers/UsersContext";
 
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
@@ -21,7 +21,7 @@ import EditModal from "./EditModal";
 import UserRow from "./UserRow";
 
 export default function EditUsers() {
-  const { users } = useContext(UsersContext);
+  const { users } = useUsers();
   const [filteredUsers, setFilteredUsers] = useState(users);
   const [searchUser, setSearchUser] = useState("");
 

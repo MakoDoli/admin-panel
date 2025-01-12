@@ -1,7 +1,7 @@
 // TransitionsModal.jsx
-import { UsersContext } from "@/providers/UsersContext";
+import useUsers from "@/providers/UsersContext";
 
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 
 import { Button } from "@mui/material";
 import Backdrop from "@mui/material/Backdrop";
@@ -22,7 +22,7 @@ type Props = {
 };
 
 export default function AddModal({ open, onClose }: Props) {
-  const { users, setUsers } = useContext(UsersContext);
+  const { users, setUsers } = useUsers();
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const initialUser = {
@@ -120,7 +120,6 @@ export default function AddModal({ open, onClose }: Props) {
                 size="small"
                 variant="outlined"
                 color="primary"
-                className="bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-md"
                 onClick={() => {
                   setNewUser(initialUser);
                   setErrors({});
@@ -133,10 +132,9 @@ export default function AddModal({ open, onClose }: Props) {
                 fullWidth
                 name="gender"
                 type="submit"
-                size="small"
+                size="large"
                 variant="contained"
                 color="primary"
-                className="bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-md"
               >
                 Save
               </Button>
