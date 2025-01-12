@@ -57,6 +57,13 @@ Ensure you have the following installed on your system:
 
    Navigate to [http://localhost:3000](http://localhost:3000) to view the application. 🌐
 
+   Credentials for login page:
+```
+email: admin@gmail.com
+pswd:  admin
+```
+
+
    You're all set! 🎉
 
 ---
