@@ -10,23 +10,12 @@ import Fade from "@mui/material/Fade";
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 
+import { modalStyle } from "@/utils/constants";
+
 type Props = {
   open: boolean;
   onClose: () => void;
   userId: number;
-};
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "1px solid #1976d2",
-  borderRadius: 1,
-  boxShadow: 24,
-  p: 4,
-  color: "text.primary",
 };
 
 export default function DeleteModal({ open, onClose, userId }: Props) {
@@ -51,7 +40,7 @@ export default function DeleteModal({ open, onClose, userId }: Props) {
       }}
     >
       <Fade in={open}>
-        <Box sx={style}>
+        <Box sx={modalStyle}>
           <Typography
             id="transition-modal-description"
             sx={{ mt: 2, textAlign: "center" }}
